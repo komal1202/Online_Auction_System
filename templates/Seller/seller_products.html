@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+      <title>Auction    </title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+		<!-- Bootstrap CSS -->
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet">
+		<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+
+
+      <link rel="shortcut icon" href="assets/img/favicon.png">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&amp;display=swap">
+      <link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/plugins/datatables/datatables.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+   </head>
+   <body>
+   	<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="{% url 'seller_home' %}">Auction</a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="{% url 'seller_home' %}">Home</a>
+						</li>
+						<li><a class="nav-link" href="{% url 'seller_add' %}">Sell</a></li>
+						<li><a class="nav-link" href="{% url 'seller_check_bid' %}">Check Bid</a></li>
+						<li><a class="nav-link" href="{% url 'seller_services' %}">Services</a></li>
+						<li><a class="nav-link" href="{% url 'seller_about_us' %}">About Us</a></li>
+						<li><a class="nav-link" href="{% url 'seller_contact_us' %}">Contact us</a></li>
+						<li><a class="nav-link" href="{% url 'seller_notification' %}"><i class="fas fa-bell"></i></a></li>
+
+					</ul>
+
+
+					<div class="dropdown" >
+
+  						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+
+							{{user.first_name}} {{user.last_name}}
+							{% if user.user_type == '1' %}
+							(Admin)
+							{% elif user.user_type == '2' %}
+							(Seller)
+							{% else %}
+							(Bidder)
+							{% endif %}
+  						</button>
+
+ 						 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							 <li>
+								 {% if user.profile_pic == "" %}
+								 <img class="avatar-img rounded-circle" alt="User Image" src="{% static 'assets/img/noimg.jpg' %}" style="width: 160px; height: 140px;">
+								 {% else %}
+								 <img class="avatar-img rounded-circle" alt="User Image" src="/{{user.profile_pic}}" style="width: 160px; height: 140px;">
+								 {% endif %}
+								 <a class="dropdown-item" href="{% url 'seller_profile' %}">Update Profile</a></li>
+   							 <li><a class="dropdown-item" href="{% url 'seller_products' %}">My Products</a></li>
+							 <li><hr class="dropdown-divider"></li>
+    							<li><a class="dropdown-item" href="{% url 'doLogout' %}">Logout</a></li>
+  						 </ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!-- End Header/Navigation -->
+      <div class="main-wrapper">
+            <div class="content container-fluid">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card card-table">
+                        <div class="card-body">
+                            {% if messages %}
+                             {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                             {{message}}
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                         {% endif %}
+                         {% endfor %}
+                        {% endif %}
+
+                         {% if messages %}
+                         {% for message in messages %}
+                          {% if message.tags == 'success' %}
+                         <div class="alert alert-success alert-dismissible fade show" role="alert">
+                             {{message}}
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                         {% endif %}
+                         {% endfor %}
+                        {% endif %}
+                           <div class="table-responsive">
+                              <table class="table table-hover table-center mb-0 datatable">
+                                 <thead>
+                                    <tr>
+                                       <th>ID</th>
+                                       <th>Name</th>
+                                       <th>Information</th>
+                                       <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Condition</th>
+                                        <th>Stock</th>
+                                        <th>Created Date</th>
+                                        <th>End Date</th>
+                                        <th>Categories</th>
+                                        <th>Brand</th>
+                                        <th>Color</th>
+                                        <th>Tags</th>
+                                        <th>Main Image</th>
+                                        <th>Additional Images</th>
+                                       <th class="text-right">Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.information }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.condition }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>{{ product.created_date }}</td>
+                    <td>{{ product.end_date }}</td>
+                    <td>{{ product.categories.name }}</td>
+                    <td>{{ product.brand.name }}</td>
+                    <td>{{ product.color.name }}</td>
+                    <td>
+                        {% for tag in product.tag_set.all %}
+                            {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
+                        {% else %}
+                            No image available
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for img in product.images_set.all %}
+                            <img src="{{ img.image.url }}" alt="{{ product.name }}" width="100">
+                        {% empty %}
+                            No additional images
+                        {% endfor %}
+                    </td>
+
+
+                                       <td class="text-right">
+                                          <div class="actions">
+                                             <a href="{% url 'seller_edit_products' product.id %}" class="btn btn-sm bg-success-light mr-2">
+                                             <i class="fas fa-pen"></i>
+                                             </a>
+                                             <a href="{% url 'seller_delete_products' product.id %}" class="btn btn-sm bg-danger-light">
+                                             <i class="fas fa-trash"></i>
+                                             </a>
+                                          </div>
+                                       </td>
+                                    </tr>
+{% endfor %}
+                                 </tbody>
+                              </table>
+                           </div>
+                            <!-- Action Button with Animation -->
+                            <div class="form-group buttons-wrapper d-flex justify-content-between mt-4">
+                                <button type="button" class="custom-button btn btn-primary animate__animated animate__pulse animate__infinite" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Product History
+                                </button>
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         {% include 'components/footer.html' %}
+         </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Product History</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                <div class="col-xl-12 col-lg-7">
+                    <div class="card card-table">
+                        <div class="card-body">
+
+                            <!-- Admin Users Table with Row Animation -->
+                            <div class="table-responsive">
+                                <table class="table table-hover table-center mb-0 datatable">
+                                    <thead>
+                                        <tr class="animate__animated animate__fadeInDown">
+
+                                            <th>ID</th>
+                                            <th>Message</th>
+
+                                            <th class="text-right">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in see_message %}
+                                            <tr class="animate__animated animate__fadeInUp">
+                                                <td>{{ i.id }}</td>
+                                                <td>{{i.message}}</td>
+                                                {% if i.status == 0 %}
+                                                <td class="text-right">
+                                                    <span class="badge badge-danger">Message Not Read</span>
+                                                </td>
+                                                {% else %}
+                                                <td class="text-right">
+                                                    <span class="badge badge-success">Message Read</span>
+                                                </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+      <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+      <script src="{% static 'assets/js/popper.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/datatables/datatables.min.js' %}"></script>
+      <script src="{% static 'assets/js/script.js' %}"></script>
+
+
+
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'js/tiny-slider.js' %}"></script>
+		<script src="{% static 'js/custom.js' %}"></script>
+   </body>
+</html>

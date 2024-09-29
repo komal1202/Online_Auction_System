@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'assets1/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets1/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets1/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets1/css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets1/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets1/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets1/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets1/css/style.css' %}" type="text/css">
+
+
+</head>
+
+<body>
+
+
+ <!-- Banner -->
+	<div class="sec-banner bg0 p-t-95 p-b-55">
+		<div class="container">
+		{% include 'components/commonAboutUs.html' %}
+			<div class="row justify-content-center">
+   <div class="col-lg-7 mb-5 mx-auto text-center">
+      <h2 style="color: #ff5733;">Our <strong>SERVICES</strong></h2>
+   </div>
+</div>
+
+		{% include 'components/commonServices.html' %}
+
+		</div>
+	</div>
+
+
+
+
+    <!-- Js Plugins -->
+    <script src="{% static 'assets1/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets1/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets1/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets1/js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'assets1/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets1/js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'assets1/js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'assets1/js/mixitup.min.js' %}"></script>
+    <script src="{% static 'assets1/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets1/js/main.js' %}"></script>
+
+
+
+</body>
+
+</html>

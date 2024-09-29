@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+		<!-- Bootstrap CSS -->
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet">
+		<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&amp;display=swap">
+      <link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+<body>
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="{% url 'Admin_home' %}">Auction</a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="{% url 'Admin_home' %}">Home</a>
+						</li>
+						<li><a class="nav-link" href="{% url 'Admin_seller' %}">Seller</a></li>
+						<li><a class="nav-link" href="{% url 'Admin_bidder' %}">Bidder</a></li>
+						<li><a class="nav-link" href="{% url 'Admin_services' %}">Services</a></li>
+						<li><a class="nav-link" href="{% url 'Admin_about_us' %}">About Us</a></li>
+						<li><a class="nav-link" href="{% url 'Admin_contact_us' %}">Contact us</a></li>
+						<li><a class="nav-link" href="{% url 'Admin_notification' %}"><i class="fas fa-bell"></i></a></li>
+					</ul>
+
+
+
+					<div class="dropdown">
+  						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							{{user.first_name}} {{user.last_name}}
+							{% if user.user_type == '1' %}
+							(Admin)
+							{% elif user.user_type == '2' %}
+							(Seller)
+							{% else %}
+							(Bidder)
+							{% endif %}
+  						</button>
+ 						 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+
+
+   							 <li>
+                                 {% if user.profile_pic == "" %}
+                                 <img class="avatar-img rounded-circle" alt="User Image" src="{% static 'assets/img/noimg.jpg' %}" style="width: 160px; height: 140px;">
+                                 {% else %}
+                                 <img class="avatar-img rounded-circle" alt="User Image" src="/{{user.profile_pic}}" style="width: 160px; height: 140px;">
+                                 {% endif %}
+                                 <a class="dropdown-item" href="{% url 'Admin_profile' %}">
+								Update Profile</a></li>
+   							 <li><a class="dropdown-item" href="{% url 'login' %}">User Login</a></li>
+							 <li><hr class="dropdown-divider"></li>
+    							<li><a class="dropdown-item" href="{% url 'doLogout' %}">Logout</a></li>
+  						 </ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!-- End Header/Navigation -->
+
+
+<!-- Product Detail Section -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- Product Images -->
+        <div class="col-lg-6 col-md-12">
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+                </div>
+                <div class="additional-images mt-3">
+                    {% for img in product.images_set.all %}
+                        <img src="{{ img.image.url }}" alt="{{ product.name }}" class="img-thumbnail" style="width: 100px;">
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-lg-6 col-md-12">
+            <h1>{{ product.name }}</h1>
+            <p class="text-muted">Category: {{ product.categories.name }} | Brand: {{ product.brand.name }}</p>
+
+            <!-- Price -->
+            <h2 class="text-success">${{ product.price }}</h2>
+
+            <!-- Product Rating -->
+
+
+            <!-- Product Description -->
+            <p class="mt-4">{{ product.description }}</p>
+
+            <!-- Product Tags -->
+            <p class="text-muted">
+                Tags:
+                {% for tag in product.tag_set.all %}
+                    <span class="badge bg-success">{{ tag.name }}</span>
+                {% endfor %}
+            </p>
+
+            <!-- Stock Availability -->
+            {% if product.stock > 0 %}
+                <p class="text-success">In Stock ({{ product.stock }} items)</p>
+            {% else %}
+                <p class="text-danger">Out of Stock</p>
+            {% endif %}
+
+            <!-- Buy and Add to Cart Buttons -->
+            <div class="mt-4">
+                <a href="#" class="btn btn-warning btn-lg"><i class="fa fa-gavel"></i> Submit Your Bid</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details and Specifications -->
+    <div class="row mt-5">
+        <div class="col-lg-12">
+            <h3>Product Details</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Condition</th>
+                    <td>{{ product.condition }}</td>
+                </tr>
+                <tr>
+                    <th>Color</th>
+                    <td>{{ product.color.name }}</td>
+                </tr>
+                <tr>
+                    <th>Created Date</th>
+                    <td>{{ product.created_date }}</td>
+                </tr>
+                <tr>
+                    <th>End Date</th>
+                    <td>{{ product.end_date }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Start Footer Section -->
+		<footer class="footer-section" style="background-color: #000000;">
+			<div class="container relative">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Auction<span>...</span></a></div>
+						<p class="mb-4" style="color: #B8B8B8;">A site used to organize and hold auctions. The main principle of all auctions is the competition between bidders. During an auction, potential buyers bid on the goods of their interest. The winner is the potential buyer offering the highest bid.</p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-8 col-sm-8 col-md-4">
+								<ul class="list-unstyled">
+									<li><a href="{% url 'Admin_home' %}">Home</a></li>
+									<li><a href="{% url 'Admin_profile' %}">Profile</a></li>
+									<li><a href="{% url 'Admin_contact_us' %}">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-8 col-sm-8 col-md-4">
+								<ul class="list-unstyled">
+									<li><a href="{% url 'Admin_about_us' %}">About us</a></li>
+									<li><a href="{% url 'Admin_services' %}">Services</a></li>
+									<li><a href="{% url 'Admin_bidder' %}">Bidder</a></li>
+									<li><a href="{% url 'Admin_seller' %}">Seller</a></li>
+								</ul>
+							</div>
+
+							<div class="col-8 col-sm-8 col-md-4">
+								<ul class="list-unstyled">
+									<li><a href="{% url 'login' %}">Help Center</a></li>
+									<li><a href="{% url 'login' %}">Register</a></li>
+									<li><a href="{% url 'login' %}">Login</a></li>
+									<li><a href="{% url 'login' %}">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->
+
+
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'js/tiny-slider.js' %}"></script>
+		<script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>

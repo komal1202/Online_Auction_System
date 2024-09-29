@@ -1,0 +1,158 @@
+{% load static %}
+
+<div class="site-section">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-7">
+            <img src="{% static 'images/aboutUs.jpg' %}" alt="Image" class="img-fluid">
+         </div>
+         <div class="col-lg-5 pl-lg-5">
+            <div class="mb-5">
+               <span class="caption">About?</span>
+               <h2 class="text-black">About <strong>Us</strong></h2>
+            </div>
+            <div class="d-flex feature-icon mb-3">
+               <span class="fa-regular fa-handshake"></span>
+               <div>
+                  <h3>Trusted Marketplace</h3>
+                  <p>A reliable platform where buyers and sellers can engage in secure and transparent transactions.</p>
+               </div>
+            </div>
+            <div class="d-flex feature-icon mb-3">
+               <span class="fa-solid fa-user-group"></span>
+               <div>
+                  <h3>Expert Support Team</h3>
+                  <p>Our dedicated support team is available 24/7 to assist with any queries or issues.</p>
+               </div>
+            </div>
+            <div class="d-flex feature-icon mb-3">
+               <span class="fa-solid fa-user-group"></span>
+               <div>
+                  <h3>Community Focused</h3>
+                  <p>Building a strong community of buyers and sellers who trust and support each other.</p>
+               </div>
+            </div>
+            <div class="d-flex feature-icon mb-3">
+               <span class="fa-solid fa-fire"></span>
+               <div>
+                  <h3>Sustainability Efforts</h3>
+                  <p>Promoting eco-friendly practices and supporting sustainable initiatives within our platform.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="site-section">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-3">
+            <div class="numbers">
+               <strong class="d-block">32, 594</strong>
+               <span>Number of Clients</span>
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <div class="numbers">
+               <strong class="d-block">25</strong>
+               <span>Years of Experience</span>
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <div class="numbers">
+               <strong class="d-block">1,029</strong>
+               <span>Employees</span>
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <div class="numbers">
+               <strong class="d-block">10,200</strong>
+               <span>Cup of Coffees</span>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="site-section pt-0">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-7 mb-5">
+            <span class="caption">How?</span>
+            <h2 class="text-black">How <strong>It Works</strong></h2>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-3">
+            <div class="step">
+               <span class="wrap-icon icon-user"></span>
+               <h3>Register</h3>
+<p>{{ "To register, visit the registration page and fill out the form with your personal details, username, and password. Submit the registration to complete the process."|truncatewords:25 }}</p>            </div>
+         </div>
+         <div class="col-lg-3">
+            <div class="step">
+               <span class="wrap-icon icon-money"></span>
+               <h3>Buy or Bid</h3>
+               <p>{{ "To buy or bid, browse the auction listings to find items of interest. Check the item details and, depending on your preference, either click Buy Now to purchase the item immediately or Place Bid to enter the auction."|truncatewords:25 }}</p>
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <div class="step">
+               <span class="wrap-icon icon-glass"></span>
+               <h3>Submit a bid</h3>
+               <p>{{ "To submit a bid, enter your bid amount, ensuring it is higher than the current bid, and confirm your bid. Monitor the auction status to stay updated on your bid's standing."|truncatewords:35 }}</p>
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <div class="step last">
+               <span class="wrap-icon icon-trophy"></span>
+               <h3>Win</h3>
+               <p>{{ "If you win the auction, you will be notified. Complete the payment process as instructed, provide shipping details if necessary, and track your shipment. After receiving the item, leave feedback for the seller to conclude the transaction."|truncatewords:25 }}</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="site-section pb-0">
+   <div class="container">
+      <div class="row mb-5 justify-content-center text-center">
+         <div class="col-lg-4 mb-5 text-center">
+            <span class="caption">Our Team</span>
+            <h2 class="mb-2 text-black text-center">Our <strong>Team</strong></h2>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
+            <div class="feature-1 border person text-center">
+               <img src="{% static 'images/t1.jpg' %}" alt="Image" class="img-fluid">
+               <div class="feature-1-content">
+                  <h2>Craig Daniel</h2>
+                  <span class="position mb-3 d-block">Co-Founder, CEO</span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
+            <div class="feature-1 border person text-center">
+               <img src="{% static 'images/t2.jpg' %}" alt="Image" class="img-fluid">
+               <div class="feature-1-content">
+                  <h2>Taylor Simpson</h2>
+                  <span class="position mb-3 d-block">Co-Founder, CEO</span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
+            <div class="feature-1 border person text-center">
+               <img src="{% static 'images/t3.jpg' %}" alt="Image" class="img-fluid">
+               <div class="feature-1-content">
+                  <h2>Jonas Tabble</h2>
+                  <span class="position mb-3 d-block">Co-Founder, CEO</span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
